@@ -1,0 +1,81 @@
+// Open API Specification
+
+openapi: 3.0.3
+info:
+  title: User Items API
+  version: 1.0.0
+servers:
+  - url: https://tmyikqjl41.execute-api.eu-north-1.amazonaws.com/
+
+paths:
+  /users/{userId}:
+    delete:
+      summary: Delete a user item
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User item deleted successfully
+
+    get:
+      summary: Get a user item
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserItem'
+
+  /users:
+    get:
+      summary: Get all user items
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserItem'
+
+    put:
+      summary: Create a user item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserItemInput'
+      responses:
+        '200':
+          description: User item created successfully
+
+components:
+  schemas:
+    UserItem:
+      type: object
+      properties:
+        userId:
+          type: string
+        userName:
+          type: string
+
+    UserItemInput:
+      type: object
+      properties:
+        userId:
+          type: string
+        userName:
+          type: string
